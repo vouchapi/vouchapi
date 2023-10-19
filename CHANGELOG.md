@@ -1,5 +1,11 @@
 # vouchapi
 
+## 0.0.2
+
+### Patch Changes
+
+- 3de2817: Added Profile Vouch Update fun. fixed Profile Update Type
+
 ## 0.0.1
 
 ### Patch Changes
