@@ -78,11 +78,23 @@ export class ProfileManager {
   }
 
   async update(id: string, update: typeof version1.updateProfile.body._type) {
-    return await this.vouchClient.apiClient.updateProfile({
+    const updatedData = await this.vouchClient.apiClient.updateProfile({
       params: {
         id,
       },
       body: update,
     });
+
+    if (updatedData.status === 400) {
+      if (updatedData.body.statusCode === 400) {
+        throw new Error(updatedData.body.message + ". on askProofVouch");
+      }
+    }
+
+    if (updatedData.status !== 201) {
+      return null;
+    }
+
+    return new Profile(updatedData.body, this.vouchClient);
   }
 }
