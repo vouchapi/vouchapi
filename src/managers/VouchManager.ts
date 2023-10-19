@@ -144,4 +144,22 @@ export class VouchManager {
 
     return new Vouch(returnType.body, this.vouchClient);
   }
+
+  async updateVouch(
+    vouchId: number | string,
+    vouch: typeof version1.updateVouch.body._type
+  ) {
+    const returnType = await this.vouchClient.apiClient.updateVouch({
+      body: vouch,
+      params: {
+        vouchId: vouchId.toString(),
+      },
+    });
+
+    if (returnType.status !== 201) {
+      return null;
+    }
+
+    return new Vouch(returnType.body, this.vouchClient);
+  }
 }

@@ -1,5 +1,4 @@
 import { version1 } from "../api/contract";
-// import { ProfileSelectSchema, profile } from "../api/schema";
 import { VouchClient } from "../client/VouchClient";
 import { Profile } from "../structure/Profile";
 import { ProfileFetchOptions } from "../types";
@@ -76,5 +75,14 @@ export class ProfileManager {
     }
 
     return new Profile(profile.body, this.vouchClient);
+  }
+
+  async update(id: string, update: typeof version1.updateProfile.body._type) {
+    return await this.vouchClient.apiClient.updateProfile({
+      params: {
+        id,
+      },
+      body: update,
+    });
   }
 }

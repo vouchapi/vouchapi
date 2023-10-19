@@ -51,7 +51,13 @@ export const version1 = c.router(
       path: "v1/profiles/:id/update",
       method: "POST",
       summary: "Update profile",
-      body: z.optional(ProfileSelectSchema),
+      body: ProfileSelectSchema.omit({
+        id: true,
+        createdAt: true,
+        positiveVouches: true,
+        importedVouches: true,
+        latestComments: true,
+      }).partial(),
       responses: {
         201: ProfileSelectSchema,
         400: z.object({
