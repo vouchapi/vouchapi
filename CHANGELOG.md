@@ -1,5 +1,11 @@
 # vouchapi
 
+## 0.0.7
+
+### Patch Changes
+
+- 9ecf36f: String > Date
+
 ## 0.0.6
 
 ### Patch Changes

@@ -1,5 +1,0 @@
----
-"vouchapi": patch
----
-
-String > Date
