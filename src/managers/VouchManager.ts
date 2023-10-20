@@ -62,7 +62,7 @@ export class VouchManager {
     return vouches.body.map((vouch) => new Vouch(vouch, this.vouchClient));
   }
 
-  async postVouch(vouch: typeof version1.postVouch.body._type) {
+  async post(vouch: typeof version1.postVouch.body._type) {
     const posted = await this.vouchClient.apiClient.postVouch({
       body: vouch,
       params: {
@@ -77,7 +77,7 @@ export class VouchManager {
     return new Vouch(posted.body, this.vouchClient);
   }
 
-  async approveVouch(
+  async approve(
     vouchId: number | string,
     vouchActivity: typeof version1.approveVouch.body._type
   ) {
@@ -95,7 +95,7 @@ export class VouchManager {
     return new Vouch(returnType.body, this.vouchClient);
   }
 
-  async denyVouch(
+  async deny(
     vouchId: number,
     vouchActivity: typeof version1.denyVouch.body._type
   ) {
@@ -119,7 +119,7 @@ export class VouchManager {
     return new Vouch(returnType.body, this.vouchClient);
   }
 
-  async askProofVouch(
+  async askProof(
     vouchId: number,
     vouchActivity: typeof version1.askProofVouch.body._type,
     who: "RECEIVER" | "VOUCHER"
@@ -145,7 +145,25 @@ export class VouchManager {
     return new Vouch(returnType.body, this.vouchClient);
   }
 
-  async updateVouch(
+  async delete(
+    vouchId: number,
+    vouchActivity: typeof version1.deleteVouch.body._type
+  ) {
+    const returnType = await this.vouchClient.apiClient.deleteVouch({
+      body: vouchActivity,
+      params: {
+        vouchId: vouchId.toString(),
+      },
+    });
+
+    if (returnType.status !== 201) {
+      return null;
+    }
+
+    return new Vouch(returnType.body, this.vouchClient);
+  }
+
+  async update(
     vouchId: number | string,
     vouch: typeof version1.updateVouch.body._type
   ) {

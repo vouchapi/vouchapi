@@ -129,6 +129,18 @@ export class Vouch {
     });
   }
 
+  async delete(staff: User) {
+    return await this.vouchClient.apiClient.deleteVouch({
+      params: {
+        vouchId: this.id,
+      },
+      body: {
+        staffId: staff.id,
+        staffName: staff.username,
+      },
+    });
+  }
+
   async askForProof({
     staff,
     who,

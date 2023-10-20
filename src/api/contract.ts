@@ -186,6 +186,22 @@ export const version1 = c.router(
         }),
       },
     },
+    deleteVouch: {
+      path: "v1/vouches/:vouchId/delete",
+      method: "POST",
+      summary: "Delete a vouch",
+      responses: {
+        201: VouchSelectSchema,
+        400: z.object({
+          statusCode: z.number(),
+          message: z.string(),
+        }),
+      },
+      body: VouchActivitySchema.omit({
+        at: true,
+        activity: true,
+      }),
+    },
   },
   {
     baseHeaders: z.object({
