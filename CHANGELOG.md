@@ -1,5 +1,11 @@
 # vouchapi
 
+## 0.0.4
+
+### Patch Changes
+
+- 0e076e1: Exported | Vouch Delete added
+
 ## 0.0.3
 
 ### Patch Changes
