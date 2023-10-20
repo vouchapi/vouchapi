@@ -7,6 +7,16 @@ import {
   VouchCreatedEvent,
   VouchUpdatedEvent,
 } from "./api/events";
+import {
+  ProfileInsertSchema,
+  ProfileSelectSchema,
+  ProfileStatusSchema,
+  RoleSchema,
+  VouchActivitySchema,
+  VouchInsertSchema,
+  VouchSelectSchema,
+  VouchStatusSchema,
+} from "./api/schema";
 
 import { VouchClient } from "./client/VouchClient";
 
@@ -40,5 +50,13 @@ export {
   ProfileFetchOptions,
   ProfileRegister,
   ProfilesFetchOptions,
+  ProfileInsertSchema,
+  ProfileSelectSchema,
+  ProfileStatusSchema,
+  RoleSchema,
+  VouchActivitySchema,
+  VouchInsertSchema,
+  VouchSelectSchema,
+  VouchStatusSchema,
 };
 export default VouchClient;

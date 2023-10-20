@@ -16,6 +16,9 @@ export const profileStatus = pgEnum("ProfileStatus", [
   "WARN",
   "GOOD",
 ]);
+
+export const ProfileStatusSchema = z.enum(profileStatus.enumValues);
+
 export const badges = pgEnum("Badges", [
   "SHINEX_ADMIN",
   "SHINEX_STAFF",
@@ -24,6 +27,7 @@ export const badges = pgEnum("Badges", [
   "MEMBER",
   "EARLYSUPPORTER",
 ]);
+
 export const role = pgEnum("Role", [
   "USER",
   "REPORT_STAFF",
@@ -31,6 +35,9 @@ export const role = pgEnum("Role", [
   "ADMIN",
   "OWNER",
 ]);
+
+export const RoleSchema = z.enum(role.enumValues);
+
 export const vouchStatus = pgEnum("VouchStatus", [
   "DENIED",
   "DENIED_FOR_PROOF",
@@ -41,6 +48,8 @@ export const vouchStatus = pgEnum("VouchStatus", [
   "UNCHECKED",
   "DELETED",
 ]);
+
+export const VouchStatusSchema = z.enum(vouchStatus.enumValues);
 
 type ElementType<T extends ReadonlyArray<unknown>> = T extends ReadonlyArray<
   infer ElementType
