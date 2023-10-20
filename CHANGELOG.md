@@ -1,5 +1,11 @@
 # vouchapi
 
+## 0.0.5
+
+### Patch Changes
+
+- b117ca5: Added profile updates static | badges fixed | vouch id string or number type
+
 ## 0.0.4
 
 ### Patch Changes
