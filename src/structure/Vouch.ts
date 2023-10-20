@@ -53,7 +53,7 @@ export class Vouch {
   }
 
   get createdAt() {
-    return this.vouchData.createdAt;
+    return new Date(this.vouchData.createdAt);
   }
 
   get activities() {

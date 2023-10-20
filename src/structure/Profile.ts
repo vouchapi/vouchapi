@@ -50,7 +50,8 @@ export class Profile {
   }
 
   get warningAt() {
-    return this.profileData.warningAt;
+    if (!this.profileData.warningAt) return null;
+    return new Date(this.profileData.warningAt);
   }
 
   get markedBy() {
@@ -66,7 +67,8 @@ export class Profile {
   }
 
   get markedAt() {
-    return this.profileData.markedAt;
+    if (!this.profileData.markedAt) return null;
+    return new Date(this.profileData.markedAt);
   }
 
   get color() {
@@ -102,7 +104,7 @@ export class Profile {
   }
 
   get createdAt() {
-    return this.profileData.createdAt;
+    return new Date(this.profileData.createdAt);
   }
 
   get badges() {
