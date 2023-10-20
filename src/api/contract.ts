@@ -98,6 +98,7 @@ export const version1 = c.router(
       method: "GET",
       summary: "Get All Vouches",
       query: z.object({
+        vouchIds: z.string().optional(),
         status: z.string().optional(),
         receiverId: z.string().optional(),
         senderId: z.string().optional(),

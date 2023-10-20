@@ -4,7 +4,7 @@ import { VouchClient } from "../client/VouchClient";
 import { Vouch } from "../structure/Vouch";
 
 export type FetchVouchesOptions = {
-  vouchId?: string | number;
+  vouchId?: string | number | string[] | number[];
   limit?: number;
   sortBy?: "createdAt" | "id";
   profileId?: string;
@@ -53,7 +53,19 @@ export class VouchManager {
   }
 
   async fetchAll(options?: FetchVouchesOptions) {
-    const vouches = await this.vouchClient.apiClient.getVouches({});
+    // if number then to string and if array then join with comma
+    const vouchId =
+      options?.vouchId instanceof Array
+        ? options.vouchId.map((vouchId) => vouchId.toString()).join(",")
+        : options?.vouchId?.toString();
+
+    const vouches = await this.vouchClient.apiClient.getVouches({
+      query: {
+        receiverId: this.profileId,
+        vouchIds: vouchId,
+        ...options,
+      },
+    });
 
     if (vouches.status !== 200) {
       return [];
