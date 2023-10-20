@@ -1,5 +1,11 @@
 # vouchapi
 
+## 0.0.6
+
+### Patch Changes
+
+- 47807be: Vouch Fetch Id filters added
+
 ## 0.0.5
 
 ### Patch Changes
