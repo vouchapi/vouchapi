@@ -1,3 +1,4 @@
+import { version1 } from "../api/contract";
 import { ProfileSelectSchema } from "../api/schema";
 import { VouchClient } from "../client/VouchClient";
 import { VouchManager } from "../managers/VouchManager";
@@ -105,7 +106,7 @@ export class Profile {
   }
 
   get badges() {
-    return this.profileData.badges;
+    return this.profileData.badges?.split(",") ?? [];
   }
 
   get isMarked() {
@@ -122,5 +123,126 @@ export class Profile {
 
   get isWarnedByStaff() {
     return this.warningByUser !== null;
+  }
+
+  async addBadge(badge: string) {
+    const updated = await this.update({
+      badges: [...this.badges, badge].join(","),
+    });
+
+    if (updated === null) {
+      return null;
+    }
+
+    return updated;
+  }
+
+  async setBadges(badges: string[]) {
+    const updated = await this.update({
+      badges: badges.join(","),
+    });
+
+    if (updated === null) {
+      return null;
+    }
+
+    return updated;
+  }
+
+  async setShop(shop: string) {
+    const updated = await this.update({
+      shop,
+    });
+
+    if (updated === null) {
+      return null;
+    }
+
+    return updated;
+  }
+
+  async setForum(forum: string) {
+    const updated = await this.update({
+      forum,
+    });
+
+    if (updated === null) {
+      return null;
+    }
+
+    return updated;
+  }
+
+  async setProducts(products: string) {
+    const updated = await this.update({
+      products,
+    });
+
+    if (updated === null) {
+      return null;
+    }
+
+    return updated;
+  }
+
+  async setBanner(banner: string) {
+    const updated = await this.update({
+      banner,
+    });
+
+    if (updated === null) {
+      return null;
+    }
+
+    return updated;
+  }
+
+  async setColor(color: number) {
+    const updated = await this.update({
+      color,
+    });
+
+    if (updated === null) {
+      return null;
+    }
+
+    return updated;
+  }
+
+  async setCustomAvatar(customAvatar: string) {
+    const updated = await this.update({
+      customAvatar,
+    });
+
+    if (updated === null) {
+      return null;
+    }
+
+    return updated;
+  }
+
+  async update(update: typeof version1.updateProfile.body._type) {
+    const updatedData = await this.vouchClient.apiClient.updateProfile({
+      params: {
+        id: this.id,
+      },
+      body: update,
+    });
+
+    if (updatedData.status === 400) {
+      if (updatedData.body.statusCode === 400) {
+        throw new Error(updatedData.body.message + ". on updateProfile");
+      }
+    }
+
+    if (updatedData.status !== 201) {
+      return null;
+    }
+
+    const updated = new Profile(updatedData.body, this.vouchClient);
+
+    this.profileData = updated.profileData;
+
+    return updated;
   }
 }

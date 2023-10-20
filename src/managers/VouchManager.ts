@@ -96,7 +96,7 @@ export class VouchManager {
   }
 
   async deny(
-    vouchId: number,
+    vouchId: number | string,
     vouchActivity: typeof version1.denyVouch.body._type
   ) {
     const returnType = await this.vouchClient.apiClient.denyVouch({
@@ -120,7 +120,7 @@ export class VouchManager {
   }
 
   async askProof(
-    vouchId: number,
+    vouchId: number | string,
     vouchActivity: typeof version1.askProofVouch.body._type,
     who: "RECEIVER" | "VOUCHER"
   ) {
@@ -146,7 +146,7 @@ export class VouchManager {
   }
 
   async delete(
-    vouchId: number,
+    vouchId: number | string,
     vouchActivity: typeof version1.deleteVouch.body._type
   ) {
     const returnType = await this.vouchClient.apiClient.deleteVouch({

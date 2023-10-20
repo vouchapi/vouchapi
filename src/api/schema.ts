@@ -114,7 +114,7 @@ export const profile = pgTable(
     importedVouches: integer("importedVouches").default(0).notNull(),
     latestComments: text("latestComments").notNull().default(""),
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow().notNull(),
-    badges: text("badges").array(),
+    badges: text("badges"),
   },
   (table) => {
     return {
