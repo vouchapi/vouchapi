@@ -1,5 +1,0 @@
----
-"vouchapi": patch
----
-
-auth try
