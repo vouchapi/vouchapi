@@ -218,7 +218,7 @@ export class Profile {
       params: {
         id: this.id,
       },
-      body: update,
+      body: { ...update, username: this.username },
     });
 
     if (updatedData.status === 400) {

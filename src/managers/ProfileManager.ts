@@ -77,12 +77,15 @@ export class ProfileManager {
     return new Profile(profile.body, this.vouchClient);
   }
 
-  async update(id: string, update: typeof version1.updateProfile.body._type) {
+  async update(
+    { id, username }: { id: string; username: string },
+    update: typeof version1.updateProfile.body._type
+  ) {
     const updatedData = await this.vouchClient.apiClient.updateProfile({
       params: {
         id,
       },
-      body: update,
+      body: { ...update, username },
     });
 
     if (updatedData.status === 400) {
