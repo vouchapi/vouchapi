@@ -1,5 +1,15 @@
 # vouchapi
 
+## 0.0.8
+
+### Patch Changes
+
+- 771e7ee: Products add formatiing
+- f0de85e: auth try
+- 548c759: dot env fixed
+- 9c46bf4: Leaderboard Added | profile status | schema changes
+- 99f6bf2: Product Search Added
+
 ## 0.0.7
 
 ### Patch Changes
