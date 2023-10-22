@@ -66,7 +66,7 @@ export class Profile {
   }
 
   get products() {
-    return this.profileData.products;
+    return this.profileData.products?.split(",") ?? [];
   }
 
   get banner() {
@@ -164,8 +164,10 @@ export class Profile {
   }
 
   async setProducts(products: string) {
+    const formatted = products.replace(/\n/g, ",").trim();
+
     const updated = await this.update({
-      products,
+      products: formatted,
     });
 
     if (updated === null) {
