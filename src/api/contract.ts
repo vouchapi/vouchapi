@@ -203,10 +203,27 @@ export const version1 = c.router(
         activity: true,
       }),
     },
+    getTop10: {
+      path: "v1/leaderboard/top",
+      method: "GET",
+      summary: "Get top 10 vouchers",
+      responses: {
+        200: ProfileSelectSchema.array(),
+      },
+    },
+    getHot10: {
+      path: "v1/leaderboard/hot",
+      method: "GET",
+      summary: "Get hot 10 vouchers",
+      responses: {
+        200: ProfileSelectSchema.array(),
+      },
+    },
   },
   {
     baseHeaders: z.object({
-      authorization: z.string(),
+      "x-client-key": z.string(),
+      "x-client-secret": z.string(),
     }),
   }
 );

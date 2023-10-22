@@ -37,38 +37,20 @@ export class Profile {
     return this.profileData.profileStatus;
   }
 
-  get warningBy() {
-    return this.profileData.warningBy;
+  get waring() {
+    return this.profileData.warning as null | {
+      reason: string;
+      by: string;
+      at: Date;
+    };
   }
 
-  get warningByUser() {
-    return this.profileData.warningByUser;
-  }
-
-  get waringReason() {
-    return this.profileData.waringReason;
-  }
-
-  get warningAt() {
-    if (!this.profileData.warningAt) return null;
-    return new Date(this.profileData.warningAt);
-  }
-
-  get markedBy() {
-    return this.profileData.markedBy;
-  }
-
-  get markedByUser() {
-    return this.profileData.markedByUser;
-  }
-
-  get markedFor() {
-    return this.profileData.markedFor;
-  }
-
-  get markedAt() {
-    if (!this.profileData.markedAt) return null;
-    return new Date(this.profileData.markedAt);
+  get mark() {
+    return this.profileData.mark as null | {
+      for: string;
+      by: string;
+      at: Date;
+    };
   }
 
   get color() {
@@ -111,20 +93,26 @@ export class Profile {
     return this.profileData.badges?.split(",") ?? [];
   }
 
-  get isMarked() {
-    return this.markedBy !== null;
+  get isScammer() {
+    return this.profileStatus === "SCAMMER";
   }
 
-  get isMarkedByStaff() {
-    return this.markedByUser !== null;
+  get isBlacklisted() {
+    return (
+      this.profileStatus === "BLACKLISTED" ||
+      this.profileStatus === "BLACKLISTED_AND_DEAL_WITH_CAUTION"
+    );
   }
 
-  get isWarned() {
-    return this.warningBy !== null;
+  get isBlocked() {
+    return this.profileStatus === "BLOCKED";
   }
 
-  get isWarnedByStaff() {
-    return this.warningByUser !== null;
+  get isDWC() {
+    return (
+      this.profileStatus === "DEAL_WITH_CAUTION" ||
+      this.profileStatus === "BLACKLISTED_AND_DEAL_WITH_CAUTION"
+    );
   }
 
   async addBadge(badge: string) {

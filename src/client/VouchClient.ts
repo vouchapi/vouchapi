@@ -17,47 +17,48 @@ import { EventEmitter } from "../event/EventEmitter";
 import { ProfileManager } from "../managers/ProfileManager";
 import { Vouch } from "../structure/Vouch";
 import { Profile } from "../structure/Profile";
+import { LeaderboardManager } from "../managers/LeaderBoardManager";
 
+export type VouchClientOptions = {
+  host: string;
+  apiKey: string;
+  apiSecret: string;
+};
 export class VouchClient extends EventEmitter<EventMap> {
-  private socket: Socket;
-  public apiClient = initClient(version1, BaseClientConfig(this));
+  public ws: Socket;
+  public apiClient = initClient(version1, BaseClientConfig(this.con));
   public vouches = new VouchManager(this);
   public profiles = new ProfileManager(this);
+  public leaderboard = new LeaderboardManager(this);
 
-  constructor() {
+  constructor(private readonly con: VouchClientOptions) {
     super();
-    this.socket = io(BaseClientConfig(this).baseUrl); // You can specify the server URL if needed
+    this.ws = io(this.con.host);
     this.setupEventListeners();
   }
 
   private setupEventListeners() {
-    this.socket.on(
-      WebhookEvents.ProfileCreated,
-      (data: ProfileCreatedEvent) => {
-        this.emit(EventTypes.ProfileCreated, data);
+    this.ws.on(WebhookEvents.ProfileCreated, (data: ProfileCreatedEvent) => {
+      this.emit(EventTypes.ProfileCreated, data);
 
-        for (const profile of data.profiles) {
-          this.profiles.cache.set(
-            profile.id.toString(),
-            new Profile(profile, this)
-          );
-        }
-      }
-    );
-
-    this.socket.on(
-      WebhookEvents.ProfileUpdated,
-      (data: ProfileUpdatedEvent) => {
-        this.emit(EventTypes.ProfileUpdated, data);
-
+      for (const profile of data.profiles) {
         this.profiles.cache.set(
-          data.newProfiles.id.toString(),
-          new Profile(data.newProfiles, this)
+          profile.id.toString(),
+          new Profile(profile, this)
         );
       }
-    );
+    });
 
-    this.socket.on(WebhookEvents.VouchCreated, (data: VouchCreatedEvent) => {
+    this.ws.on(WebhookEvents.ProfileUpdated, (data: ProfileUpdatedEvent) => {
+      this.emit(EventTypes.ProfileUpdated, data);
+
+      this.profiles.cache.set(
+        data.newProfiles.id.toString(),
+        new Profile(data.newProfiles, this)
+      );
+    });
+
+    this.ws.on(WebhookEvents.VouchCreated, (data: VouchCreatedEvent) => {
       this.emit(EventTypes.VouchCreated, data);
 
       this.vouches.cache.set(
@@ -66,20 +67,20 @@ export class VouchClient extends EventEmitter<EventMap> {
       );
     });
 
-    this.socket.on(WebhookEvents.VouchUpdated, (data: VouchUpdatedEvent) => {
+    this.ws.on(WebhookEvents.VouchUpdated, (data: VouchUpdatedEvent) => {
       this.emit(EventTypes.VouchUpdated, data);
       this.vouches.cache.set(
         data.newVouch.id.toString(),
         new Vouch(data.newVouch, this)
       );
     });
-    this.socket.on("connect", () => {
+    this.ws.on("connect", () => {
       this.emit("ready");
     });
   }
 
   // Clean up resources when needed
   public disconnect() {
-    this.socket.disconnect();
+    this.ws.disconnect();
   }
 }

@@ -12,8 +12,11 @@ import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
 
 export const profileStatus = pgEnum("ProfileStatus", [
+  "DEAL_WITH_CAUTION",
+  "BLACKLISTED_AND_DEAL_WITH_CAUTION",
   "SCAMMER",
-  "WARN",
+  "BLOCKED",
+  "BLACKLISTED",
   "GOOD",
 ]);
 
@@ -97,14 +100,22 @@ export const profile = pgTable(
     customAvatar: text("customAvatar"),
     role: role("role").default("USER").notNull(),
     profileStatus: profileStatus("profileStatus").default("GOOD").notNull(),
-    warningBy: text("warningBy"),
-    warningByUser: text("warningByUser"),
-    waringReason: text("waringReason"),
-    warningAt: timestamp("warningAt", { mode: "date" }),
-    markedBy: text("markedBy"),
-    markedByUser: text("markedByUser"),
-    markedFor: text("markedFor"),
-    markedAt: timestamp("markedAt", { mode: "date" }),
+    warning: json("warning")
+      .default({})
+      .$type<{
+        reason: string;
+        by: string;
+        at: Date;
+      }>()
+      .notNull(),
+    mark: json("mark")
+      .default({})
+      .$type<{
+        for: string;
+        by: string;
+        at: Date;
+      }>()
+      .notNull(),
     color: integer("color"),
     shop: text("shop").default("Set your shop"),
     forum: text("forum").default("Set your forum"),

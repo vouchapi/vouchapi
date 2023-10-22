@@ -1,10 +1,11 @@
-import { VouchClient } from "../client/VouchClient";
+import { VouchClient, VouchClientOptions } from "../client/VouchClient";
 
-export const BaseClientConfig = (vouchClient: VouchClient) => {
+export const BaseClientConfig = (options: VouchClientOptions) => {
   return {
-    baseUrl: "http://localhost:8080/",
+    baseUrl: options.host,
     baseHeaders: {
-      authorization: "",
+      "x-client-key": options.apiKey,
+      "x-client-secret": options.apiSecret,
     },
   };
 };
