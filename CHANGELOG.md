@@ -1,5 +1,11 @@
 # vouchapi
 
+## 0.0.9
+
+### Patch Changes
+
+- 2801e5d: Profile Update Bugfix
+
 ## 0.0.8
 
 ### Patch Changes
