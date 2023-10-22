@@ -219,6 +219,14 @@ export const version1 = c.router(
         200: ProfileSelectSchema.array(),
       },
     },
+    searchProduct: {
+      path: "v1/products/:query",
+      method: "GET",
+      summary: "Search product",
+      responses: {
+        200: ProfileSelectSchema.array(),
+      },
+    },
   },
   {
     baseHeaders: z.object({

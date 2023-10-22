@@ -97,4 +97,18 @@ export class ProfileManager {
 
     return new Profile(updatedData.body, this.vouchClient);
   }
+
+  async searchProduct(query: string) {
+    const search = await this.vouchClient.apiClient.searchProduct({
+      params: {
+        query,
+      },
+    });
+
+    if (search.status !== 200) {
+      return null;
+    }
+
+    return search.body;
+  }
 }
