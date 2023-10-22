@@ -1,3 +1,4 @@
+require("dotenv").config();
 import { BaseClientConfig } from "./api/baseUrl";
 import {
   EventMap,
@@ -18,7 +19,7 @@ import {
   VouchStatusSchema,
 } from "./api/schema";
 
-import { VouchClient, VouchClientOptions } from "./client/VouchClient";
+import { VouchClient } from "./client/VouchClient";
 
 import { BaseManager } from "./managers/BaseManager";
 import { VouchManager } from "./managers/VouchManager";
@@ -42,7 +43,6 @@ export {
   VouchCreatedEvent,
   VouchUpdatedEvent,
   VouchClient,
-  VouchClientOptions,
   BaseManager,
   VouchManager,
   ProfileManager,

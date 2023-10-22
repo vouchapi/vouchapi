@@ -19,21 +19,16 @@ import { Vouch } from "../structure/Vouch";
 import { Profile } from "../structure/Profile";
 import { LeaderboardManager } from "../managers/LeaderBoardManager";
 
-export type VouchClientOptions = {
-  host: string;
-  apiKey: string;
-  apiSecret: string;
-};
 export class VouchClient extends EventEmitter<EventMap> {
   public ws: Socket;
-  public apiClient = initClient(version1, BaseClientConfig(this.con));
+  public apiClient = initClient(version1, BaseClientConfig(this));
   public vouches = new VouchManager(this);
   public profiles = new ProfileManager(this);
   public leaderboard = new LeaderboardManager(this);
 
-  constructor(private readonly con: VouchClientOptions) {
+  constructor() {
     super();
-    this.ws = io(this.con.host);
+    this.ws = io(BaseClientConfig(this).baseUrl); // You can specify the server URL if needed
     this.setupEventListeners();
   }
 
