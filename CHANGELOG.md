@@ -1,5 +1,11 @@
 # vouchapi
 
+## 0.0.10
+
+### Patch Changes
+
+- 1f4ec46: Profile Update Data fixed Event Emmitter issue
+
 ## 0.0.9
 
 ### Patch Changes
