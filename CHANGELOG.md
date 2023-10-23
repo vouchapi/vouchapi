@@ -1,5 +1,11 @@
 # vouchapi
 
+## 0.0.12
+
+### Patch Changes
+
+- 74f7278: Hot profile type fixed
+
 ## 0.0.11
 
 ### Patch Changes
