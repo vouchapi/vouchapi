@@ -37,10 +37,7 @@ export class VouchClient extends EventEmitter<EventMap> {
       this.emit(EventTypes.ProfileCreated, data);
 
       for (const profile of data.profiles) {
-        this.profiles.cache.set(
-          profile.id.toString(),
-          new Profile(profile, this)
-        );
+        this.profiles.cache.set(profile.userId, new Profile(profile, this));
       }
     });
 
@@ -48,8 +45,8 @@ export class VouchClient extends EventEmitter<EventMap> {
       this.emit(EventTypes.ProfileUpdated, data);
 
       this.profiles.cache.set(
-        data.newProfiles.id.toString(),
-        new Profile(data.newProfiles, this)
+        data.newProfile.userId,
+        new Profile(data.newProfile, this)
       );
     });
 

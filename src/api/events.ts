@@ -25,8 +25,8 @@ export class ProfileCreatedEvent {
 
 export class ProfileUpdatedEvent {
   constructor(
-    public oldProfiles: typeof ProfileSelectSchema._type,
-    public newProfiles: typeof ProfileSelectSchema._type
+    public oldProfile: typeof ProfileSelectSchema._type,
+    public newProfile: typeof ProfileSelectSchema._type
   ) {}
 }
 

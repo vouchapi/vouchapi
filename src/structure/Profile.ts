@@ -216,7 +216,7 @@ export class Profile {
   async update(update: typeof version1.updateProfile.body._type) {
     const updatedData = await this.vouchClient.apiClient.updateProfile({
       params: {
-        id: this.id,
+        id: this.userId,
       },
       body: { ...update, username: this.username },
     });
