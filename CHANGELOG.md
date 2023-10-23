@@ -1,5 +1,11 @@
 # vouchapi
 
+## 0.0.11
+
+### Patch Changes
+
+- d3ffc34: isPending | isReleventTo added to Vouch
+
 ## 0.0.10
 
 ### Patch Changes
