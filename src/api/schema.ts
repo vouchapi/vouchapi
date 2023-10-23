@@ -126,6 +126,7 @@ export const profile = pgTable(
     latestComments: text("latestComments").notNull().default(""),
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow().notNull(),
     badges: text("badges"),
+    alternative: text("alternative").default("").notNull(),
   },
   (table) => {
     return {

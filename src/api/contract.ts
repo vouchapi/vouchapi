@@ -216,7 +216,9 @@ export const version1 = c.router(
       method: "GET",
       summary: "Get hot 10 vouchers",
       responses: {
-        200: ProfileSelectSchema.array(),
+        200: ProfileSelectSchema.extend({
+          weeklyVouches: z.number(),
+        }).array(),
       },
     },
     searchProduct: {
