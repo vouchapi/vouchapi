@@ -69,7 +69,14 @@ export class Vouch {
   }
 
   get isPending() {
-    return this.vouchData.vouchStatus === "UNCHECKED";
+    return this.vouchData.vouchStatus === "UNCHECKED" || this.isPendingProof;
+  }
+
+  get isPendingProof() {
+    return (
+      this.vouchData.vouchStatus === "PENDING_PROOF_RECEIVER" ||
+      this.vouchData.vouchStatus === "PENDING_PROOF_VOUCHER"
+    );
   }
 
   get isPendingProofReceiver() {
@@ -102,6 +109,10 @@ export class Vouch {
 
   get isApprovedOrDenied() {
     return this.isApproved || this.isDenied;
+  }
+
+  isRelevantTo(id: string) {
+    return this.receiverId === id || this.voucherId === id;
   }
 
   async approve({ staff }: { staff: User }) {
