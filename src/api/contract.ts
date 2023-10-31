@@ -13,6 +13,11 @@ import { z } from "zod";
 
 const c = initContract();
 
+const exceptionType = z.object({
+  error: z.number(),
+  message: z.string(),
+});
+
 export const version1 = c.router(
   {
     getProfiles: {
@@ -21,6 +26,7 @@ export const version1 = c.router(
       summary: "Get all profiles",
       responses: {
         200: ProfileSelectSchema.array(),
+        502: exceptionType,
       },
     },
     getProfile: {
@@ -32,6 +38,7 @@ export const version1 = c.router(
       }),
       responses: {
         200: ProfileSelectSchema,
+        502: exceptionType,
       },
     },
     registerProfile: {
@@ -41,10 +48,7 @@ export const version1 = c.router(
       body: ProfileInsertSchema,
       responses: {
         201: ProfileSelectSchema,
-        400: z.object({
-          statusCode: z.number(),
-          message: z.string(),
-        }),
+        502: exceptionType,
       },
     },
     updateProfile: {
@@ -60,10 +64,7 @@ export const version1 = c.router(
       }).partial(),
       responses: {
         201: ProfileSelectSchema,
-        400: z.object({
-          statusCode: z.number(),
-          message: z.string(),
-        }),
+        502: exceptionType,
       },
     },
     getProfileVouch: {
@@ -72,6 +73,7 @@ export const version1 = c.router(
       summary: "Get a User Vouch",
       responses: {
         200: VouchSelectSchema.array(),
+        502: exceptionType,
       },
     },
     postVouch: {
@@ -87,10 +89,7 @@ export const version1 = c.router(
       }),
       responses: {
         201: VouchSelectSchema,
-        400: z.object({
-          statusCode: z.number(),
-          message: z.string(),
-        }),
+        502: exceptionType,
       },
     },
     getVouches: {
@@ -107,6 +106,7 @@ export const version1 = c.router(
       }),
       responses: {
         200: VouchSelectSchema.array(),
+        502: exceptionType,
       },
     },
     getVouch: {
@@ -115,6 +115,7 @@ export const version1 = c.router(
       summary: "Get All Vouches",
       responses: {
         200: VouchSelectSchema || null,
+        502: exceptionType,
       },
     },
     updateVouch: {
@@ -130,10 +131,7 @@ export const version1 = c.router(
       }).partial(),
       responses: {
         201: VouchSelectSchema,
-        400: z.object({
-          statusCode: z.number(),
-          message: z.string(),
-        }),
+        502: exceptionType,
       },
     },
 
@@ -147,10 +145,7 @@ export const version1 = c.router(
       }),
       responses: {
         201: VouchSelectSchema,
-        400: z.object({
-          statusCode: z.number(),
-          message: z.string(),
-        }),
+        502: exceptionType,
       },
     },
     denyVouch: {
@@ -165,10 +160,7 @@ export const version1 = c.router(
       }),
       responses: {
         201: VouchSelectSchema,
-        400: z.object({
-          statusCode: z.number(),
-          message: z.string(),
-        }),
+        502: exceptionType,
       },
     },
     askProofVouch: {
@@ -181,10 +173,7 @@ export const version1 = c.router(
       }),
       responses: {
         201: VouchSelectSchema,
-        400: z.object({
-          statusCode: z.number(),
-          message: z.string(),
-        }),
+        502: exceptionType,
       },
     },
     deleteVouch: {
@@ -193,10 +182,7 @@ export const version1 = c.router(
       summary: "Delete a vouch",
       responses: {
         201: VouchSelectSchema,
-        400: z.object({
-          statusCode: z.number(),
-          message: z.string(),
-        }),
+        502: exceptionType,
       },
       body: VouchActivitySchema.omit({
         at: true,
@@ -209,6 +195,7 @@ export const version1 = c.router(
       summary: "Get top 10 vouchers",
       responses: {
         200: ProfileSelectSchema.array(),
+        502: exceptionType,
       },
     },
     getHot10: {
@@ -219,6 +206,7 @@ export const version1 = c.router(
         200: ProfileSelectSchema.extend({
           weeklyVouches: z.number(),
         }).array(),
+        502: exceptionType,
       },
     },
     searchProduct: {
@@ -227,6 +215,7 @@ export const version1 = c.router(
       summary: "Search product",
       responses: {
         200: ProfileSelectSchema.array(),
+        502: exceptionType,
       },
     },
   },
