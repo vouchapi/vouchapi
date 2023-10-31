@@ -1,5 +1,11 @@
 # vouchapi
 
+## 0.0.13
+
+### Patch Changes
+
+- 3c29bb1: Expections Added
+
 ## 0.0.12
 
 ### Patch Changes
