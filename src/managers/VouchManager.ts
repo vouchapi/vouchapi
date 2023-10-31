@@ -43,6 +43,10 @@ export class VouchManager {
       },
     });
 
+    if (vouch.status === 502) {
+      throw new Error(vouch.body.message + ". on getVouch");
+    }
+
     if (vouch.status !== 200) {
       return null;
     }
@@ -67,6 +71,10 @@ export class VouchManager {
       },
     });
 
+    if (vouches.status === 502) {
+      throw new Error(vouches.body.message + ". on getVouches");
+    }
+
     if (vouches.status !== 200) {
       return [];
     }
@@ -81,6 +89,10 @@ export class VouchManager {
         id: vouch.receiverId,
       },
     });
+
+    if (posted.status === 502) {
+      throw new Error(posted.body.message + ". on postVouch");
+    }
 
     if (posted.status !== 201) {
       return null;
@@ -100,6 +112,12 @@ export class VouchManager {
       },
     });
 
+    if (returnType.status === 502) {
+      if (returnType.body.error) {
+        throw new Error(returnType.body.message + ". on approveVouch");
+      }
+    }
+
     if (returnType.status !== 201) {
       return null;
     }
@@ -118,8 +136,8 @@ export class VouchManager {
       },
     });
 
-    if (returnType.status === 400) {
-      if (returnType.body.statusCode === 400) {
+    if (returnType.status === 502) {
+      if (returnType.body.error) {
         throw new Error(returnType.body.message + ". on denyVouch");
       }
     }
@@ -144,8 +162,8 @@ export class VouchManager {
       },
     });
 
-    if (returnType.status === 400) {
-      if (returnType.body.statusCode === 400) {
+    if (returnType.status === 502) {
+      if (returnType.body.error) {
         throw new Error(returnType.body.message + ". on askProofVouch");
       }
     }
@@ -168,6 +186,10 @@ export class VouchManager {
       },
     });
 
+    if (returnType.status === 502) {
+      throw new Error(returnType.body.message + ". on deleteVouch");
+    }
+
     if (returnType.status !== 201) {
       return null;
     }
@@ -185,6 +207,12 @@ export class VouchManager {
         vouchId: vouchId.toString(),
       },
     });
+
+    if (returnType.status === 502) {
+      if (returnType.body.error) {
+        throw new Error(returnType.body.message + ". on updateVouch");
+      }
+    }
 
     if (returnType.status !== 201) {
       return null;

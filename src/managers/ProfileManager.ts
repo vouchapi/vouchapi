@@ -88,8 +88,8 @@ export class ProfileManager {
       body: { ...update, username },
     });
 
-    if (updatedData.status === 400) {
-      if (updatedData.body.statusCode === 400) {
+    if (updatedData.status === 502) {
+      if (updatedData.body.error) {
         throw new Error(updatedData.body.message + ". on askProofVouch");
       }
     }
